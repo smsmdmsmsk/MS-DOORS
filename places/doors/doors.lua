@@ -208,13 +208,13 @@ local EntityTable = {
 }
 
 local HidingPlaceName = {
-    ["Hotel"] = "Closet",
-    ["Backdoor"] = "Closet",
-    ["Fools"] = "Closet",
-    ["Retro"] = "Closet",
+    ["Hotel"] = "柜子",
+    ["Backdoor"] = "柜子",
+    ["Fools"] = "铁柜",
+    ["Retro"] = "铁柜",
 
-    ["Rooms"] = "Locker",
-    ["Mines"] = "Locker"
+    ["Rooms"] = "锁柜",
+    ["Mines"] = "锁柜"
 }
 local CutsceneExclude = {
     "FigureHotelChase",
@@ -398,7 +398,7 @@ local Toggles = getgenv().Linoria.Toggles
 local ESPLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/mstudio45/MS-ESP/refs/heads/main/source.lua"))()
 
 local Window = Library:CreateWindow({
-    Title = "mspaint v2 | DOORS",
+    Title = "MS汉化XSKIL | DOORS",
     Center = true,
     AutoShow = true,
     Resizable = true,
@@ -801,13 +801,13 @@ do
             local opened = door:GetAttribute("Opened")
             local locked = room:GetAttribute("RequiresKey")
     
-            local doorState = if opened then "[Opened]" elseif locked then "[Locked]" else ""
+            local doorState = if opened then "[已打开]" elseif locked then "[有锁]" else ""
             local doorIdx = Script.Functions.RandomString()
     
             local doorEsp = Script.Functions.ESP({
                 Type = "Door",
                 Object = door:WaitForChild("Door"),
-                Text = string.format("Door %s %s", doorNumber, doorState),
+                Text = string.format("门 %s %s", doorNumber, doorState),
                 Color = Options.DoorEspColor.Value,
     
                 OnDestroy = function()
@@ -816,7 +816,7 @@ do
             })
     
             Script.FeatureConnections.Door[doorIdx] = door:GetAttributeChangedSignal("Opened"):Connect(function()
-                if doorEsp then doorEsp.SetText(string.format("Door %s [Opened]", doorNumber)) end
+                if doorEsp then doorEsp.SetText(string.format("门 %s [打开]", doorNumber)) end
                 if Script.FeatureConnections.Door[doorIdx] then Script.FeatureConnections.Door[doorIdx]:Disconnect() end
             end)
         end
@@ -828,7 +828,7 @@ do
             Script.Functions.ESP({
                 Type = "Objective",
                 Object = child,
-                Text = string.format("Timer Lever [+%s]", child.TakeTimer.TextLabel.Text),
+                Text = string.format("时间拉杆 [+%s]", child.TakeTimer.TextLabel.Text),
                 Color = Options.ObjectiveEspColor.Value
             })
         -- Backdoor + Hotel
@@ -836,7 +836,7 @@ do
             Script.Functions.ESP({
                 Type = "Objective",
                 Object = child,
-                Text = "Key",
+                Text = "钥匙",
                 Color = Options.ObjectiveEspColor.Value
             })
         -- Hotel
@@ -844,28 +844,28 @@ do
             Script.Functions.ESP({
                 Type = "Objective",
                 Object = child,
-                Text = "Electrical Key",
+                Text = "电子钥匙",
                 Color = Options.ObjectiveEspColor.Value
             })
         elseif child.Name == "LeverForGate" then
             Script.Functions.ESP({
                 Type = "Objective",
                 Object = child,
-                Text = "Gate Lever",
+                Text = "闸门杆",
                 Color = Options.ObjectiveEspColor.Value
             })
         elseif child.Name == "LiveHintBook" then
             Script.Functions.ESP({
                 Type = "Objective",
                 Object = child,
-                Text = "Book",
+                Text = "书",
                 Color = Options.ObjectiveEspColor.Value
             })
         elseif child.Name == "LiveBreakerPolePickup" then
             Script.Functions.ESP({
                 Type = "Objective",
                 Object = child,
-                Text = "Breaker",
+                Text = "断路器",
                 Color = Options.ObjectiveEspColor.Value
             })
         -- Mines
@@ -873,21 +873,21 @@ do
             Script.Functions.ESP({
                 Type = "Objective",
                 Object = child,
-                Text = "Generator",
+                Text = "发电机",
                 Color = Options.ObjectiveEspColor.Value
             })
         elseif child.Name == "MinesGateButton" then
             Script.Functions.ESP({
                 Type = "Objective",
                 Object = child,
-                Text = "Gate Power Button",
+                Text = "门按钮",
                 Color = Options.ObjectiveEspColor.Value
             })
         elseif child.Name == "FuseObtain" then
             Script.Functions.ESP({
                 Type = "Objective",
                 Object = child,
-                Text = "Fuse",
+                Text = "按钮",
                 Color = Options.ObjectiveEspColor.Value
             })
         elseif child.Name == "MinesAnchor" then
@@ -897,7 +897,7 @@ do
                 Script.Functions.ESP({
                     Type = "Objective",
                     Object = child,
-                    Text = string.format("Anchor %s", sign.TextLabel.Text),
+                    Text = string.format("锚 %s", sign.TextLabel.Text),
                     Color = Options.ObjectiveEspColor.Value
                 })
             end
@@ -908,7 +908,7 @@ do
                 Script.Functions.ESP({
                     Type = "Objective",
                     Object = wheel,
-                    Text = "Water Pump",
+                    Text = "水泵",
                     Color = Options.ObjectiveEspColor.Value
                 })
             end
@@ -949,7 +949,7 @@ do
     function Script.Functions.ChestESP(chest)
         local text = chest.Name:gsub("Box", ""):gsub("_Vine", ""):gsub("_Small", "")
         local locked = chest:GetAttribute("Locked")
-        local state = if locked then "[Locked]" else ""
+        local state = if locked then "[上锁]" else ""
     
         Script.Functions.ESP({
             Type = "Chest",
@@ -984,7 +984,7 @@ do
         Script.Functions.ESP({
             Type = "HidingSpot",
             Object = spot,
-            Text = if spot:GetAttribute("LoadModule") == "Bed" then "Bed" else HidingPlaceName[floor.Value],
+            Text = if spot:GetAttribute("LoadModule") == "床" then "床" else HidingPlaceName[floor.Value],
             Color = Options.HidingSpotEspColor.Value
         })
     end
@@ -993,7 +993,7 @@ do
         Script.Functions.ESP({
             Type = "Gold",
             Object = gold,
-            Text = string.format("Gold [%s]", gold:GetAttribute("GoldValue")),
+            Text = string.format("金币 [%s]", gold:GetAttribute("GoldValue")),
             Color = Options.GoldEspColor.Value
         })
     end
@@ -1088,7 +1088,7 @@ do
                 Script.Functions.ESP({
                     Type = "None",
                     Object = child,
-                    Text = "Ladder",
+                    Text = "阶梯",
                     Color = Color3.new(0, 0, 1)
                 })
             end
@@ -2371,17 +2371,17 @@ end
 
 --// Main \\--
 
-local PlayerGroupBox = Tabs.Main:AddLeftGroupbox("Player") do
+local PlayerGroupBox = Tabs.Main:AddLeftGroupbox("玩家") do
     PlayerGroupBox:AddSlider("SpeedSlider", {
-        Text = "Speed Boost",
+        Text = "速度",
         Default = 0,
         Min = 0,
-        Max = 7,
+        Max = 47,
         Rounding = 1
     })
 
     PlayerGroupBox:AddSlider("VelocityLimiter", {
-        Text = "Velocity Limiter",
+        Text = "速度限制",
         Default = 25,
         Min = 0,
         Max = 25,
@@ -2389,30 +2389,30 @@ local PlayerGroupBox = Tabs.Main:AddLeftGroupbox("Player") do
     })
 
     PlayerGroupBox:AddToggle("NoAccel", {
-        Text = "No Acceleration",
+        Text = "无加速度",
         Default = false
     })
 
     PlayerGroupBox:AddToggle("InstaInteract", {
-        Text = "Instant Interact",
+        Text = "即时互动",
         Default = false
     })
 
     PlayerGroupBox:AddToggle("FastClosetExit", {
-        Text = "Fast Closet Exit",
+        Text = "快速柜子",
         Default = false
     })
 
     PlayerGroupBox:AddDivider()
 
     PlayerGroupBox:AddToggle("EnableJump", {
-        Text = "Enable Jump",
+        Text = "跳跃",
         Default = false,
         Visible = not isFools,
     })
 
     PlayerGroupBox:AddToggle("Noclip", {
-        Text = "Noclip",
+        Text = "穿墙",
         Default = false
     }):AddKeyPicker("NoclipKey", {
         Mode = "Toggle",
@@ -2422,7 +2422,7 @@ local PlayerGroupBox = Tabs.Main:AddLeftGroupbox("Player") do
     })
 
     PlayerGroupBox:AddToggle("Fly", {
-        Text = "Fly",
+        Text = "飞行",
         Default = false
     }):AddKeyPicker("FlyKey", {
         Mode = "Toggle",
@@ -2432,7 +2432,7 @@ local PlayerGroupBox = Tabs.Main:AddLeftGroupbox("Player") do
     })
     
     PlayerGroupBox:AddSlider("FlySpeed", {
-        Text = "Fly Speed",
+        Text = "飞行速度",
         Default = 15,
         Min = 10,
         Max = 22,
@@ -2441,19 +2441,19 @@ local PlayerGroupBox = Tabs.Main:AddLeftGroupbox("Player") do
     })
 end
 
-local ReachGroupBox = Tabs.Main:AddLeftGroupbox("Reach") do
+local ReachGroupBox = Tabs.Main:AddLeftGroupbox("远程") do
     ReachGroupBox:AddToggle("DoorReach", {
-        Text = "Door Reach",
+        Text = "远程开门",
         Default = false
     })
 
     ReachGroupBox:AddToggle("PromptClip", {
-        Text = "Prompt Clip",
+        Text = "互动距离",
         Default = false
     })
 
     ReachGroupBox:AddSlider("PromptReachMultiplier", {
-        Text = "Prompt Reach Multiplier",
+        Text = "物品互动距离",
         Default = 1,
         Min = 1,
         Max = 2,
@@ -2463,7 +2463,7 @@ end
 
 local AutomationGroupBox = Tabs.Main:AddRightGroupbox("Automation") do
     AutomationGroupBox:AddToggle("AutoInteract", {
-        Text = "Auto Interact",
+        Text = "自动互动",
         Default = false
     }):AddKeyPicker("AutoInteractKey", {
         Mode = Library.IsMobile and "Toggle" or "Hold",
@@ -2474,14 +2474,14 @@ local AutomationGroupBox = Tabs.Main:AddRightGroupbox("Automation") do
 
     AutomationGroupBox:AddDivider()
     AutomationGroupBox:AddToggle("AutoWardrobeNotif", {
-        Text = "Auto " .. HidingPlaceName[floor.Value] .. " Notifications",
+        Text = "自动 " .. HidingPlaceName[floor.Value] .. " 通知",
         Default = false
     })
 
     AutomationGroupBox:AddToggle("AutoWardrobe", {
-        Text = "Auto " .. HidingPlaceName[floor.Value],
+        Text = "自动 " .. HidingPlaceName[floor.Value],
         Default = false,
-        Tooltip = "Might fail with multiple entities (Rush & Ambush, 3+ Rush spawns)",
+        Tooltip = "多个实体可能会失败(RUSH和AMBUSH)",
         Visible = not isRetro
     }):AddKeyPicker("AutoWardrobeKey", {
         Mode = "Toggle",
@@ -2492,19 +2492,19 @@ local AutomationGroupBox = Tabs.Main:AddRightGroupbox("Automation") do
     AutomationGroupBox:AddDivider()
 
     AutomationGroupBox:AddToggle("AutoHeartbeat", {
-        Text = "Auto Heartbeat Minigame",
+        Text = "自动心跳迷你游戏",
         Default = false,
         Visible = ExecutorSupport["getnamecallmethod"]
     })
 
     if isHotel or isFools then
         AutomationGroupBox:AddToggle("AutoLibrarySolver", {
-            Text = "Auto Library Code",
+            Text = "自动图书馆密码",
             Default = false
         })
 
         AutomationGroupBox:AddSlider("AutoLibraryDistance", {
-            Text = "Unlock Distance",
+            Text = "距离解锁",
             Default = 20,
             Min = 1,
             Max = 100,
@@ -2519,11 +2519,11 @@ local AutomationGroupBox = Tabs.Main:AddRightGroupbox("Automation") do
             Default = "Legit",
             Multi = false,
 
-            Text = "Auto Breaker Solver Method"
+            Text = "自动断路器"
         })
 
         AutomationGroupBox:AddToggle("AutoBreakerSolver", {
-            Text = "Auto Breaker Box",
+            Text = "自动拾取断路器盒",
             Default = false
         })
 
@@ -2561,9 +2561,9 @@ local AutomationGroupBox = Tabs.Main:AddRightGroupbox("Automation") do
     end
 end
 
-local MiscGroupBox = Tabs.Main:AddRightGroupbox("Misc") do
+local MiscGroupBox = Tabs.Main:AddRightGroupbox("其余") do
     MiscGroupBox:AddButton({
-        Text = "Revive",
+        Text = "复活【不是免费】",
         Func = function()
             remotesFolder.Revive:FireServer()
         end,
@@ -2571,7 +2571,7 @@ local MiscGroupBox = Tabs.Main:AddRightGroupbox("Misc") do
     })
 
     MiscGroupBox:AddButton({
-        Text = "Play Again",
+        Text = "再来一次",
         Func = function()
             remotesFolder.PlayAgain:FireServer()
         end,
@@ -2579,7 +2579,7 @@ local MiscGroupBox = Tabs.Main:AddRightGroupbox("Misc") do
     })
 
     MiscGroupBox:AddButton({
-        Text = "Lobby",
+        Text = "大厅",
         Func = function()
             remotesFolder.Lobby:FireServer()
         end,
@@ -2589,42 +2589,42 @@ end
 
 --// Exploits \\--
 
-local AntiEntityGroupBox = Tabs.Exploits:AddLeftGroupbox("Anti-Entity") do
+local AntiEntityGroupBox = Tabs.Exploits:AddLeftGroupbox("移除或防伤害-实体") do
     AntiEntityGroupBox:AddToggle("AntiHalt", {
-        Text = "Anti-Halt",
+        Text = "移除-Halt",
         Default = false
     })
 
     AntiEntityGroupBox:AddToggle("AntiScreech", {
-        Text = "Anti-Screech",
+        Text = "移除-Screech",
         Default = false
     })
 
     AntiEntityGroupBox:AddToggle("AntiDupe", {
-        Text = "Anti-" .. (isBackdoor and "Vacuum" or "Dupe"),
+        Text = "移除-" .. (isBackdoor and "真空" or "假门"),
         Default = false
     })
 
     AntiEntityGroupBox:AddToggle("AntiEyes", {
-        Text = "Anti-" .. (isBackdoor and "Lookman" or "Eyes"),
+        Text = "移除-" .. (isBackdoor and "后门影子" or "眼睛"),
         Default = false
     })
 
     AntiEntityGroupBox:AddToggle("AntiSnare", {
-        Text = "Anti-Snare",
+        Text = "移除-地刺re",
         Default = false
     })
 
     AntiEntityGroupBox:AddToggle("AntiHearing", {
-        Text = "Anti-Figure Hearing",
+        Text = "将-Figure 变成聋子",
         Default = false,
         Visible = not isFools
     })
 end
 
-local TrollingGroupBox = Tabs.Exploits:AddLeftGroupbox("Trolling") do
+local TrollingGroupBox = Tabs.Exploits:AddLeftGroupbox("多余功能") do
     TrollingGroupBox:AddToggle("SpamOtherTools", {
-        Text = "Spam Other Tools",
+        Text = "倒立",
         Default = false
     }):AddKeyPicker("SpamOtherTools", {
         Default = "X",
@@ -2634,13 +2634,13 @@ local TrollingGroupBox = Tabs.Exploits:AddLeftGroupbox("Trolling") do
     })
 
     TrollingGroupBox:AddToggle("UpsideDown", {
-        Text = "Upside Down",
+        Text = "倒立",
         Default = false
     })
 end
 
-local BypassGroupBox = Tabs.Exploits:AddRightGroupbox("Bypass") do
-    BypassGroupBox:AddDropdown("SpeedBypassMethod", {
+local BypassGroupBox = Tabs.Exploits:AddRightGroupbox("绕过") do
+    BypassGroupBox:AddDropdown("Speed Bypass Method方法", {
         AllowNull = false,
         Values = {"Massless", --[["Size"]]},
         Default = "Massless",
@@ -2650,7 +2650,7 @@ local BypassGroupBox = Tabs.Exploits:AddRightGroupbox("Bypass") do
     })
     
     BypassGroupBox:AddSlider("SpeedBypassDelay", {
-        Text = "Bypass Delay",
+        Text = "绕过延迟",
         Default = 0.21,
         Min = 0.2,
         Max = 0.22,
@@ -2659,30 +2659,30 @@ local BypassGroupBox = Tabs.Exploits:AddRightGroupbox("Bypass") do
     })
 
     BypassGroupBox:AddToggle("SpeedBypass", {
-        Text = "Speed Bypass",
+        Text = "速度 绕过",
         Default = false
     })
 
     BypassGroupBox:AddToggle("LagbackDetection", {
-        Text = "Lagback Detection",
+        Text = "速度检测",
         Default = false
     })
 
     BypassGroupBox:AddDivider()
     
     BypassGroupBox:AddToggle("InfItems", {
-        Text = "Infinite Items",
+        Text = "无限【撬锁，十字架，骷髅钥匙】",
         Default = false,
         Visible = not isFools
     })
 
     BypassGroupBox:AddToggle("FakeRevive", {
-        Text = "Fake Revive",
+        Text = "假复活",
         Default = false
     })
 
     BypassGroupBox:AddToggle("DeleteSeek", {
-        Text = "Delete Seek (FE)",
+        Text = "删除SEEK(FE)",
         Default = false
     })
 end
@@ -2691,44 +2691,44 @@ end
 --// Visuals \\--
 
 local ESPTabBox = Tabs.Visuals:AddLeftTabbox() do
-    local ESPTab = ESPTabBox:AddTab("ESP") do
+    local ESPTab = ESPTabBox:AddTab("透视") do
         ESPTab:AddToggle("DoorESP", {
-            Text = "Door",
+            Text = "门透视",
             Default = false,
         }):AddColorPicker("DoorEspColor", {
             Default = Color3.new(0, 1, 1),
         })
     
         ESPTab:AddToggle("ObjectiveESP", {
-            Text = "Objective",
+            Text = "钥匙之类透视",
             Default = false,
         }):AddColorPicker("ObjectiveEspColor", {
             Default = Color3.new(0, 1, 0),
         })
     
         ESPTab:AddToggle("EntityESP", {
-            Text = "Entity",
+            Text = "怪物透视",
             Default = false,
         }):AddColorPicker("EntityEspColor", {
             Default = Color3.new(1, 0, 0),
         })
     
         ESPTab:AddToggle("ItemESP", {
-            Text = "Item",
+            Text = "物品透视",
             Default = false,
         }):AddColorPicker("ItemEspColor", {
             Default = Color3.new(1, 0, 1),
         })
     
         ESPTab:AddToggle("ChestESP", {
-            Text = "Chest",
+            Text = "箱子透视",
             Default = false,
         }):AddColorPicker("ChestEspColor", {
             Default = Color3.new(1, 1, 0),
         })
     
         ESPTab:AddToggle("PlayerESP", {
-            Text = "Player",
+            Text = "玩家透视",
             Default = false,
         }):AddColorPicker("PlayerEspColor", {
             Default = Color3.new(1, 1, 1),
@@ -2742,43 +2742,43 @@ local ESPTabBox = Tabs.Visuals:AddLeftTabbox() do
         })
     
         ESPTab:AddToggle("GoldESP", {
-            Text = "Gold",
+            Text = "金币透视",
             Default = false,
         }):AddColorPicker("GoldEspColor", {
             Default = Color3.new(1, 1, 0),
         })
     
         ESPTab:AddToggle("GuidingLightESP", {
-            Text = "Guiding Light",
+            Text = "引导之光透视",
             Default = false,
         }):AddColorPicker("GuidingLightEspColor", {
             Default = Color3.new(0, 0.5, 1),
         })
     end
 
-    local ESPSettingsTab = ESPTabBox:AddTab("Settings") do
+    local ESPSettingsTab = ESPTabBox:AddTab("设置") do
         ESPSettingsTab:AddToggle("ESPHighlight", {
-            Text = "Enable Highlight",
+            Text = "轮廓显示",
             Default = true,
         })
 
         ESPSettingsTab:AddToggle("ESPTracer", {
-            Text = "Enable Tracer",
+            Text = "线条显示",
             Default = true,
         })
     
         ESPSettingsTab:AddToggle("ESPRainbow", {
-            Text = "Rainbow ESP",
+            Text = "彩虹显示",
             Default = false,
         })
     
         ESPSettingsTab:AddToggle("ESPDistance", {
-            Text = "Show Distance",
+            Text = "距离显示",
             Default = true
         })
     
         ESPSettingsTab:AddSlider("ESPFillTransparency", {
-            Text = "Fill Transparency",
+            Text = "轮廓亮度",
             Default = 0.75,
             Min = 0,
             Max = 1,
@@ -2786,7 +2786,7 @@ local ESPTabBox = Tabs.Visuals:AddLeftTabbox() do
         })
     
         ESPSettingsTab:AddSlider("ESPOutlineTransparency", {
-            Text = "Outline Transparency",
+            Text = "轮廓透明度",
             Default = 0,
             Min = 0,
             Max = 1,
@@ -2794,7 +2794,7 @@ local ESPTabBox = Tabs.Visuals:AddLeftTabbox() do
         })
     
         ESPSettingsTab:AddSlider("ESPTextSize", {
-            Text = "Text Size",
+            Text = "字体大小",
             Default = 22,
             Min = 16,
             Max = 26,
@@ -2807,14 +2807,14 @@ local ESPTabBox = Tabs.Visuals:AddLeftTabbox() do
             Default = "Bottom",
             Multi = false,
 
-            Text = "Tracer Start Position"
+            Text = "线条显示位置"
         })
     end
 end
 
-local AmbientGroupBox = Tabs.Visuals:AddLeftGroupbox("Ambient") do
+local AmbientGroupBox = Tabs.Visuals:AddLeftGroupbox("环境") do
     AmbientGroupBox:AddSlider("Brightness", {
-        Text = "Brightness",
+        Text = "调节",
         Default = 0,
         Min = 0,
         Max = 3,
@@ -2822,46 +2822,46 @@ local AmbientGroupBox = Tabs.Visuals:AddLeftGroupbox("Ambient") do
     })
 
     AmbientGroupBox:AddToggle("Fullbright", {
-        Text = "Fullbright",
+        Text = "高亮",
         Default = false,
     })
 
     AmbientGroupBox:AddToggle("NoFog", {
-        Text = "No Fog",
+        Text = "移除雾",
         Default = false,
     })
 
     AmbientGroupBox:AddToggle("AntiLag", {
-        Text = "Anti-Lag",
+        Text = "满级画质",
         Default = false,
     })
 end
 
 local NotifyTabBox = Tabs.Visuals:AddRightTabbox() do
-    local NotifyTab = NotifyTabBox:AddTab("Notifier") do
+    local NotifyTab = NotifyTabBox:AddTab("通知") do
         NotifyTab:AddDropdown("NotifyEntity", {
             AllowNull = true,
             Values = {"Blitz", "Lookman", "Rush", "Ambush", "Eyes", "A60", "A120", "Jeff The Killer", "Gloombat Swarm"},
             Default = {},
             Multi = true,
 
-            Text = "Notify Entities"
+            Text = "通知实体选择"
         })
 
         NotifyTab:AddToggle("NotifyPadlock", {
-            Text = "Notify Library Code",
+            Text = "通知图书馆密码",
             Default = false,
         })
 
         NotifyTab:AddToggle("NotifyOxygen", {
-            Text = "Notify Oxygen",
+            Text = "氧气通知",
             Default = false,
         })
     end
 
-    local NotifySettingsTab = NotifyTabBox:AddTab("Settings") do
+    local NotifySettingsTab = NotifyTabBox:AddTab("设置") do
         NotifySettingsTab:AddToggle("NotifyChat", {
-            Text = "Notify Chat",
+            Text = "聊天通知",
             Tooltip = "Entity and Padlock Code",
             Default = false,
         })
@@ -2869,17 +2869,17 @@ local NotifyTabBox = Tabs.Visuals:AddRightTabbox() do
         NotifySettingsTab:AddDivider()
         
         NotifySettingsTab:AddToggle("NotifySound", {
-            Text = "Play Alert Sound",
+            Text = "播放提示音",
             Default = true,
         })
 
         NotifySettingsTab:AddDropdown("NotifySide", {
             AllowNull = false,
-            Values = {"Left", "Right"},
+            Values = {"右", "左"},
             Default = "Right",
             Multi = false,
 
-            Text = "Notification Side"
+            Text = "通知位置"
         })
 
         NotifySettingsTab:AddDropdown("NotifyStyle", {
@@ -2893,9 +2893,9 @@ local NotifyTabBox = Tabs.Visuals:AddRightTabbox() do
     end
 end
 
-local SelfGroupBox = Tabs.Visuals:AddRightGroupbox("Self") do
+local SelfGroupBox = Tabs.Visuals:AddRightGroupbox("自己") do
     SelfGroupBox:AddToggle("ThirdPerson", {
-        Text = "Third Person",
+        Text = "第三人称",
         Default = false
     }):AddKeyPicker("ThirdPersonKey", {
         Default = "V",
@@ -2905,7 +2905,7 @@ local SelfGroupBox = Tabs.Visuals:AddRightGroupbox("Self") do
     })
     
     SelfGroupBox:AddSlider("FOV", {
-        Text = "Field of View",
+        Text = "视野",
         Default = 70,
         Min = 70,
         Max = 120,
@@ -2913,23 +2913,23 @@ local SelfGroupBox = Tabs.Visuals:AddRightGroupbox("Self") do
     })
     
     SelfGroupBox:AddToggle("NoCamShake", {
-        Text = "No Camera Shake",
+        Text = "没有相机抖动",
         Default = false,
         Visible = ExecutorSupport["require"]
     })
 
     SelfGroupBox:AddToggle("NoCutscenes", {
-        Text = "No Cutscenes",
+        Text = "没有过场动画",
         Default = false,
     })
 
     SelfGroupBox:AddToggle("TranslucentHidingSpot", {
-        Text = "Translucent " .. HidingPlaceName[floor.Value],
+        Text = "半透明的 " .. HidingPlaceName[floor.Value],
         Default = false
     })
     
     SelfGroupBox:AddSlider("HidingTransparency", {
-        Text = "Hiding Transparency",
+        Text = "隐藏透明度",
         Default = 0.5,
         Min = 0,
         Max = 1,
@@ -2941,30 +2941,30 @@ end
 --// Floor \\--
 task.spawn(function()
     if isHotel then
-        local Hotel_AntiEntityGroupBox = Tabs.Floor:AddLeftGroupbox("Anti-Entity") do
+        local Hotel_AntiEntityGroupBox = Tabs.Floor:AddLeftGroupbox("移除-怪物") do
             Hotel_AntiEntityGroupBox:AddToggle("AntiSeekObstructions", {
-                Text = "Anti-Seek Obstructions",
+                Text = "移除SEEK手臂伤害",
                 Default = false
             })
         end
 
-        local Hotel_BypassGroupBox = Tabs.Floor:AddLeftGroupbox("Bypass") do
+        local Hotel_BypassGroupBox = Tabs.Floor:AddLeftGroupbox("绕过") do
             Hotel_BypassGroupBox:AddToggle("AvoidRushAmbush", {
-                Text = "Avoid Rush/Ambush",
-                Tooltip = "Doesn't work for greenhouse :(",
+                Text = "移除 Rush/Ambush伤害",
+                Tooltip = "对温室不起作用:(",
                 Default = false,
                 Risky = true
             })
         end
 
-        local Hotel_ModifiersGroupBox = Tabs.Floor:AddRightGroupbox("Modifiers") do
+        local Hotel_ModifiersGroupBox = Tabs.Floor:AddRightGroupbox("修饰符") do
             Hotel_ModifiersGroupBox:AddToggle("AntiA90", {
-                Text = "Anti-A90",
+                Text = "移除-A90",
                 Default = false
             })
 
             Hotel_ModifiersGroupBox:AddToggle("NoJammin", {
-                Text = "No Jammin",
+                Text = "没有Jammin",
                 Default = false
             })
         end
@@ -3007,7 +3007,7 @@ task.spawn(function()
             })
 
             Mines_MovementGroupBox:AddSlider("MaxSlopeAngle", {
-                Text = "Max Floor Angle",
+                Text = "最大地板角度",
                 Default = 45,
                 Min = 0,
                 Max = 90,
@@ -3015,31 +3015,31 @@ task.spawn(function()
             })
         end
 
-        local Mines_AntiEntityGroupBox = Tabs.Floor:AddLeftGroupbox("Anti-Entity") do
+        local Mines_AntiEntityGroupBox = Tabs.Floor:AddLeftGroupbox("移除-怪物") do
             Mines_AntiEntityGroupBox:AddToggle("AntiGiggle", {
-                Text = "Anti-Giggle",
+                Text = "移除-Giggle伤害",
                 Default = false
             })
 
             Mines_AntiEntityGroupBox:AddToggle("AntiGloomEgg", {
-                Text = "Anti-Gloom Egg",
+                Text = "移除-Gloom Egg",
                 Default = false
             })
 
             Mines_AntiEntityGroupBox:AddToggle("AntiBridgeFall", {
-                Text = "Anti-Bridge Fall",
+                Text = "移除-桥梁倒塌",
                 Default = false
             })
         end
 
         local Mines_AutomationGroupBox = Tabs.Floor:AddRightGroupbox("Automation") do
             Mines_AutomationGroupBox:AddButton({
-                Text = "Beat Door 200",
+                Text = "自动200门水泵",
                 Func = function()
                     if latestRoom.Value < 99 then
                         Script.Functions.Alert({
                             Title = "Beat Door 200",
-                            Description = "You haven't reached door 200...",
+                            Description = "你还没有到达200号门...",
                             Time = 5
                         })
 
@@ -3103,19 +3103,19 @@ task.spawn(function()
             })
 
             Mines_AutomationGroupBox:AddToggle("TheMinesAnticheatBypass", {
-                Text = "Anticheat Bypass",
+                Text = "抗高温 绕过",
                 Default = false
             })
         end
 
-        local Mines_BypassGroupBox = Tabs.Floor:AddRightGroupbox("Bypass") do
+        local Mines_BypassGroupBox = Tabs.Floor:AddRightGroupbox("绕过") do
             Mines_BypassGroupBox:AddToggle("MinecartTeleport", {
-                Text = "Minecart Teleport",
+                Text = "矿车传送",
                 Default = false
             })
 
             Mines_BypassGroupBox:AddToggle("MinecartTeleportDebug", {
-                Text = "Minecart Teleport Debug",
+                Text = "矿车传送调试",
                 Default = false,
                 Visible = false,
             })
@@ -3123,7 +3123,7 @@ task.spawn(function()
         
         local Mines_VisualGroupBox = Tabs.Floor:AddRightGroupbox("Visuals") do
             Mines_VisualGroupBox:AddToggle("MinecartPathVisualiser", {
-                Text = "Show Correct Minecart Path",
+                Text = "显示正确的矿车路径",
                 Default = false
             })
         end
@@ -3253,14 +3253,14 @@ task.spawn(function()
     elseif isBackdoor then
         local Backdoors_AntiEntityGroupBox = Tabs.Floor:AddLeftGroupbox("Anti-Entity") do
             Backdoors_AntiEntityGroupBox:AddToggle("AntiHasteJumpscare", {
-                Text = "Anti Haste Jumpscare",
+                Text = "移除Haste Jumpscare",
                 Default = false
             })
         end
 
         local Backdoors_VisualGroupBox = Tabs.Floor:AddRightGroupbox("Visual") do
             Backdoors_VisualGroupBox:AddToggle("HasteClock", {
-                Text = "Haste Clock",
+                Text = "显示时钟",
                 Default = true
             })
         end
@@ -3302,16 +3302,16 @@ task.spawn(function()
             end
         end))
     elseif isRooms then
-        local Rooms_AntiEntityGroupBox = Tabs.Floor:AddLeftGroupbox("Anti-Entity") do
+        local Rooms_AntiEntityGroupBox = Tabs.Floor:AddLeftGroupbox("移除实体") do
             Rooms_AntiEntityGroupBox:AddToggle("AntiA90", {
-                Text = "Anti-A90",
+                Text = "移除-A90",
                 Default = false
             })
         end
 
         local Rooms_AutomationGroupBox = Tabs.Floor:AddRightGroupbox("Automation") do
             Rooms_AutomationGroupBox:AddToggle("AutoRooms", {
-                Text = "Auto Rooms",
+                Text = "自动rooms",
                 Default = false
             })
 
@@ -3320,7 +3320,7 @@ task.spawn(function()
             Rooms_AutomationGroupBox:AddDivider()
 
             Rooms_AutomationGroupBox:AddToggle("AutoRoomsDebug", { 
-                Text = "Show Debug Info",
+                Text = "显示调试信息",
                 Default = false
             })
             
@@ -3335,8 +3335,8 @@ task.spawn(function()
             if Toggles.AutoRooms.Value and not value then
                 Script.Functions.Alert({
                     Title = "Auto Rooms",
-                    Description = "Anti A-90 is required for Auto Rooms to work!",
-                    Reason = "Anti A-90 has been enabled",
+                    Description = "自动rooms需要使用防A-90!",
+                    Reason = "反A-90已启用",
                 })
                 
                 Toggles.AntiA90:SetValue(true)
@@ -3464,8 +3464,8 @@ task.spawn(function()
 
                                     Script.Functions.Alert({
                                         Title = "Auto Rooms",
-                                        Description = "Seems like you are stuck, trying to recalculate path...",
-                                        Reason = "Failed to move to waypoint",
+                                        Description = "似乎你被困住了，试图重新计算路径...",
+                                        Reason = "无法移动到航路点",
                                     })
 
                                     recalculate = true
@@ -3500,8 +3500,8 @@ task.spawn(function()
                     if latestRoom.Value == 1000 then
                         Script.Functions.Alert({
                             Title = "Auto Rooms",
-                            Description = "You have reached A-1000",
-                            Reason = "A-1000 reached by mspaint autorooms",
+                            Description = "你已经到达A-1000",
+                            Reason = "由mspaint autorooms达到的A-1000",
                         })
 
                         break
@@ -3533,7 +3533,7 @@ task.spawn(function()
             })
 
             Fools_TrollingGroupBox:AddSlider("ThrowStrength", {
-                Text = "Throw Strength",
+                Text = "投掷力量",
                 Default = 1,
                 Min = 1,
                 Max = 10,
@@ -3575,43 +3575,43 @@ task.spawn(function()
             end
         end
 
-        local Fools_AntiEntityGroupBox = Tabs.Floor:AddRightGroupbox("Anti-Entity") do
+        local Fools_AntiEntityGroupBox = Tabs.Floor:AddRightGroupbox("移除-怪物") do
             Fools_AntiEntityGroupBox:AddToggle("AntiSeekObstructions", {
-                Text = "Anti-Seek Obstructions",
+                Text = "移除-Seek 手臂",
                 Default = false
             })
 
             Fools_AntiEntityGroupBox:AddToggle("AntiBananaPeel", {
-                Text = "Anti-Banana",
+                Text = "移除-香蕉",
                 Default = false
             })
 
             Fools_AntiEntityGroupBox:AddToggle("AntiJeffClient", {
-                Text = "Anti-Jeff",
+                Text = "移除-Jeff",
                 Default = false
             })
         end
 
-        local Fools_BypassGroupBox = Tabs.Floor:AddRightGroupbox("Bypass") do
+        local Fools_BypassGroupBox = Tabs.Floor:AddRightGroupbox("绕过") do
             Fools_BypassGroupBox:AddToggle("InfRevives", {
-                Text = "Infinite Revives",
+                Text = "无限复活",
                 Default = false
             })
 
             Fools_BypassGroupBox:AddToggle("AntiJeffServer", {
-                Text = "Anti-Jeff (FE)",
+                Text = "反杰夫",
                 Default = false
             })
 
             Fools_BypassGroupBox:AddDivider()
 
             Fools_BypassGroupBox:AddToggle("GodmodeNoclipBypassFools", {
-                Text = "Godmode",
+                Text = "上帝模式",
                 Default = false
             })
 
             Fools_BypassGroupBox:AddToggle("FigureGodmodeFools", {
-                Text = "Figure Godmode",
+                Text = "饰 Godmode",
                 Default = false
             })
         end
@@ -3936,8 +3936,8 @@ Toggles.FakeRevive:OnChanged(function(value)
         if latestRoom and latestRoom.Value == 0 then
             Script.Functions.Alert({
                 Title = "Fake Revive",
-                Description = "You have to open the next door to use fake revive",
-                Reason = "You are in the first room"
+                Description = "你必须打开下一扇门才能使用假复活",
+                Reason = "你在第一个房间"
             })
             repeat task.wait() until latestRoom.Value > 0
         end
@@ -5058,7 +5058,7 @@ Library:GiveSignal(workspace.ChildAdded:Connect(function(child)
                     if Options.NotifyEntity.Value[shortName] == true then
                         Script.Functions.Alert({
                             Title = "ENTITIES",
-                            Description = shortName .. " has spawned!",
+                            Description = shortName .. " 怪物出现",
                             Reason = (not EntityTable.NotifyReason[child.Name].Spawned and "Go find a hiding place!" or nil),
                             Image = EntityTable.NotifyReason[child.Name].Image,
 
