@@ -1,4 +1,4 @@
-Load:( --!native
+--!native
 --!optimize 2
 local OrionLib = loadstring(game:HttpGet("https://pastebin.com/raw/VeaMSRZK"))()
 
@@ -5989,4 +5989,4 @@ ThemeManager:ApplyToTab(Tabs["UI Settings"])
 SaveManager:LoadAutoloadConfig()
 
 Script.Functions.UpdateRPC()
-getgenv().mspaint_loaded = true)
+getgenv().mspaint_loaded = true
