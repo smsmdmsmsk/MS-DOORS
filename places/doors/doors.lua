@@ -5099,11 +5099,9 @@ Library:GiveSignal(workspace.ChildAdded:Connect(function(child)
             end)
         elseif EntityTable.NotifyMessage[child.Name] and Options.NotifyEntity.Value[shortName] then
             Script.Functions.Alert({
-                OrionLib:MakeNotification({
-                    Name = shortName .."怪物生成",
-                    Content = "躲起来",
-                    Time = 4
-                })
+                Title = "ENTITIES",
+                Description = shortName .. " 怪物生成，请尽快寻找位置或者柜子等地方进行躲藏",
+                Reason = (not EntityTable.NotifyReason[child.Name].Spawned and "去找个藏身之处! lol" or nil),
                 Image = EntityTable.NotifyReason[child.Name].Image,
 
                 Warning = true
