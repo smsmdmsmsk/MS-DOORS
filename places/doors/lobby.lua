@@ -1,5 +1,18 @@
 --!native
 --!optimize 2
+local OrionLib = loadstring(game:HttpGet("https://pastebin.com/raw/VeaMSRZK"))()
+
+OrionLib:MakeNotification({
+                    Name = "服务器检测",
+                    Content = "检测到您在DOORS服务器大厅",
+                    Time = 4
+                })    
+
+OrionLib:MakeNotification({
+                    Name = "你的注入器："..identifyexecutor(),
+                    Content = "执行MS大厅脚本",
+                    Time = 4
+                })
 
 if not ExecutorSupport then print("[mspaint] Loading stopped, please use the official loadstring for mspaint. (ERROR: ExecutorSupport == nil)") return end
 if getgenv().mspaint_loaded then print("[mspaint] Loading stopped. (ERROR: Already loaded)") return end
@@ -122,7 +135,7 @@ local Options = getgenv().Linoria.Options
 local Toggles = getgenv().Linoria.Toggles
 
 local Window = Library:CreateWindow({
-    Title = "mspaint v2 | DOORS (Lobby)",
+    Title = "MS汉化 | DOORS (大厅)",
     Center = true,
     AutoShow = true,
     Resizable = true,
@@ -133,8 +146,8 @@ local Window = Library:CreateWindow({
 })
 
 local Tabs = {
-    Main = Window:AddTab("Main"),
-    ["UI Settings"] = Window:AddTab("UI Settings"),
+    Main = Window:AddTab("主要的"),
+    ["UI Settings"] = Window:AddTab("UI"),
 }
 
 
@@ -311,9 +324,9 @@ end
 
 --// Main \\--
 
-local SniperGroupbox = Tabs.Main:AddLeftGroupbox("Sniper") do
+local SniperGroupbox = Tabs.Main:AddLeftGroupbox("狙击兵") do
     SniperGroupbox:AddToggle("ElevatorSniper", {
-        Text = "Elevator Sniper",
+        Text = "电梯狙击手",
         Default = false
     })
 
@@ -321,7 +334,7 @@ local SniperGroupbox = Tabs.Main:AddLeftGroupbox("Sniper") do
         SpecialType = "Player",
         Multi = false,
 
-        Text = "Target"
+        Text = "选择玩家"
     })
 end
 
