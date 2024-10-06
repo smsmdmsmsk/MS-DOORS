@@ -3,28 +3,50 @@
 local OrionLib = loadstring(game:HttpGet("https://pastebin.com/raw/VeaMSRZK"))()
 
 OrionLib:MakeNotification({
-                    Name = "XSKil",
+                    Name = "XSKil Msa 汉 付费高级版",
                     Content = "欢迎使用",
                     Time = 4
                 })    
+                
+                local sound = Instance.new("Sound", workspace)
+sound.SoundId = "rbxassetid://4590662766"
+sound:Play()
+
+wait(1)
 
 OrionLib:MakeNotification({
                     Name = "你的注入器："..identifyexecutor(),
                     Content = "注入器检测",
                     Time = 4
                 })
+                
+                local sound = Instance.new("Sound", workspace)
+sound.SoundId = "rbxassetid://4590662766"
+sound:Play()
+
+wait(1)
 
 OrionLib:MakeNotification({
                     Name = "用户名："..game.Players.LocalPlayer.Character.Name,
                     Content = "用户名检测",
                     Time = 4
                 })    
+                
+                local sound = Instance.new("Sound", workspace)
+sound.SoundId = "rbxassetid://4590662766"
+sound:Play()
+
+wait(1)
 
 OrionLib:MakeNotification({
                     Name = "服务器ID："..game.PlaceId,
                     Content = "ID检测",
                     Time = 4
                 })
+                
+    local sound = Instance.new("Sound", workspace)
+sound.SoundId = "rbxassetid://4590662766"
+sound:Play()
 
 if not ExecutorSupport then print("[mspaint] Loading stopped, please use the official loadstring for mspaint. (ERROR: ExecutorSupport == nil)") return end
 if getgenv().mspaint_loaded then print("[mspaint] Loading stopped. (ERROR: Already loaded)") return end
@@ -2486,7 +2508,7 @@ local ReachGroupBox = Tabs.Main:AddLeftGroupbox("远程") do
     })
 end
 
-local AutomationGroupBox = Tabs.Main:AddRightGroupbox("自动化") do
+local AutomationGroupBox = Tabs.Main:AddRightGroupbox("Automation") do
     AutomationGroupBox:AddToggle("AutoInteract", {
         Text = "自动互动",
         Default = false
@@ -3340,7 +3362,7 @@ task.spawn(function()
                 Default = false
             })
 
-            Rooms_AutomationGroupBox:AddLabel("Recommended Settings:\nSpeed Bypass and Noclip disabled", true)
+            Rooms_AutomationGroupBox:AddLabel("推荐设置:\n速度绕过和Noclip禁用", true)
 
             Rooms_AutomationGroupBox:AddDivider()
 
@@ -5100,7 +5122,7 @@ Library:GiveSignal(workspace.ChildAdded:Connect(function(child)
             Script.Functions.Alert({
                 Title = "ENTITIES",
                 Description = shortName .. " 怪物生成，请尽快寻找位置或者柜子等地方进行躲藏",
-                Reason = (not EntityTable.NotifyReason[child.Name].Spawned and "去找个藏身之处! lol" or nil),
+                Reason = (not EntityTable.NotifyReason[child.Name].Spawned and "寻找躲藏的地方" or nil),
                 Image = EntityTable.NotifyReason[child.Name].Image,
 
                 Warning = true
@@ -5303,10 +5325,10 @@ Library:GiveSignal(localPlayer.CharacterAdded:Connect(function(newCharacter)
         if Toggles.FakeRevive.Value then
             Script.Functions.Alert({
                 Title = "Fake Revive",
-                Description = "You have revived, fake revive has stopped working.",
-                Reason = "Enable it again to start fake revive",
+                Description = "你复活了，假死已经不起作用了.",
+                Reason = "再次启用它来启动假活",
 
-                LinoriaMessage = "Fake Revive has stopped working, enable it again to start fake revive",
+                LinoriaMessage = "伪恢复已停止工作，请再次启用它来启动伪恢复",
             })
             Toggles.FakeRevive:SetValue(false)
         end
