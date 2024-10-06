@@ -2486,7 +2486,7 @@ local ReachGroupBox = Tabs.Main:AddLeftGroupbox("远程") do
     })
 end
 
-local AutomationGroupBox = Tabs.Main:AddRightGroupbox("Automation") do
+local AutomationGroupBox = Tabs.Main:AddRightGroupbox("自动化") do
     AutomationGroupBox:AddToggle("AutoInteract", {
         Text = "自动互动",
         Default = false
@@ -5081,11 +5081,10 @@ Library:GiveSignal(workspace.ChildAdded:Connect(function(child)
                     end
 
                     if Options.NotifyEntity.Value[shortName] == true then
-                        OrionLib:MakeNotification({
-                        Name shortName .. = "怪物刷新",
-                       Content = "躲起来！",
-                       Time = 4
-                     })
+                        Script.Functions.Alert({
+                            Title = "ENTITIES",
+                            Description = shortName .. " 怪物生成，请尽快寻找位置或者柜子等地方进行躲藏",
+                            Reason = (not EntityTable.NotifyReason[child.Name].Spawned and "去找个藏身之处! lol" or nil),
                             Image = EntityTable.NotifyReason[child.Name].Image,
 
                             Warning = true
