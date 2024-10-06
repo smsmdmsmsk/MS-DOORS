@@ -5080,17 +5080,16 @@ Library:GiveSignal(workspace.ChildAdded:Connect(function(child)
                         Script.Functions.EntityESP(child)  
                     end
 
-                    OrionLib:MakeNotification({
-                    Name = shortName .. "已刷新",
-                    Content = "快躲起来",
-                    Time = 4
-                     })
-                    local sound = Instance.new("Sound", workspace) do
-                    sound.SoundId = "rbxassetid://4590662766"
-                    sound.Volume = 2
-                    sound.PlayOnRemove = true
-                    sound:Destroy()
-                    end
+                    if Options.NotifyEntity.Value[shortName] == true then
+                        Script.Functions.Alert({
+                            Title = "ENTITIES",
+                            Description = shortName .. " 怪物出现",
+                            Reason = (not EntityTable.NotifyReason[child.Name].Spawned and "Go find a hiding place!" or nil),
+                            Image = EntityTable.NotifyReason[child.Name].Image,
+
+                            Warning = true
+                        })
+
                         if Toggles.NotifyChat.Value then
                             RBXGeneral:SendAsync(shortName .. " has spawned!")
                         end
