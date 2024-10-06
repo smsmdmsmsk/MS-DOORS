@@ -423,7 +423,7 @@ local Toggles = getgenv().Linoria.Toggles
 local ESPLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/mstudio45/MS-ESP/refs/heads/main/source.lua"))()
 
 local Window = Library:CreateWindow({
-    Title = "MS汉化XSKIL | DOORS",
+    Title = "XSKIL MS 【修复】 | DOORS",
     Center = true,
     AutoShow = true,
     Resizable = true,
@@ -434,10 +434,10 @@ local Window = Library:CreateWindow({
 })
 
 local Tabs = {
-    Main = Window:AddTab("主要功能"),
-    Exploits = Window:AddTab("移除伤害"),
-    Visuals = Window:AddTab("其余功能"),
-    Floor = Window:AddTab("楼层功能"),
+    Main = Window:AddTab("主要"),
+    Exploits = Window:AddTab("移除"),
+    Visuals = Window:AddTab("其余"),
+    Floor = Window:AddTab("楼层"),
     ["UI Settings"] = Window:AddTab("介绍"),
 }
 
@@ -2401,7 +2401,7 @@ local PlayerGroupBox = Tabs.Main:AddLeftGroupbox("玩家") do
         Text = "速度",
         Default = 0,
         Min = 0,
-        Max = 47,
+        Max = 7,
         Rounding = 1
     })
 
