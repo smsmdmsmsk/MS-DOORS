@@ -1,5 +1,30 @@
 --!native
 --!optimize 2
+local OrionLib = loadstring(game:HttpGet("https://pastebin.com/raw/VeaMSRZK"))()
+
+OrionLib:MakeNotification({
+                    Name = "XSKil",
+                    Content = "欢迎使用",
+                    Time = 4
+                })    
+
+OrionLib:MakeNotification({
+                    Name = "你的注入器："..identifyexecutor(),
+                    Content = "注入器检测",
+                    Time = 4
+                })
+
+OrionLib:MakeNotification({
+                    Name = "用户名："..game.Players.LocalPlayer.Character.Name,
+                    Content = "用户名检测",
+                    Time = 4
+                })    
+
+OrionLib:MakeNotification({
+                    Name = "此服务器ID："..game.PlaceId,
+                    Content = "ID检测",
+                    Time = 4
+                })
 
 if not ExecutorSupport then print("[mspaint] Loading stopped, please use the official loadstring for mspaint. (ERROR: ExecutorSupport == nil)") return end
 if getgenv().mspaint_loaded then print("[mspaint] Loading stopped. (ERROR: Already loaded)") return end
@@ -409,11 +434,11 @@ local Window = Library:CreateWindow({
 })
 
 local Tabs = {
-    Main = Window:AddTab("Main"),
-    Exploits = Window:AddTab("Exploits"),
-    Visuals = Window:AddTab("Visuals"),
-    Floor = Window:AddTab("Floor"),
-    ["UI Settings"] = Window:AddTab("UI Settings"),
+    Main = Window:AddTab("主要功能"),
+    Exploits = Window:AddTab("移除伤害"),
+    Visuals = Window:AddTab("其余功能"),
+    Floor = Window:AddTab("楼层功能"),
+    ["UI Settings"] = Window:AddTab("介绍"),
 }
 
 --// Captions \\--
@@ -5925,11 +5950,11 @@ local MenuGroup = Tabs["UI Settings"]:AddLeftGroupbox("Menu")
 local CreditsGroup = Tabs["UI Settings"]:AddRightGroupbox("Credits")
 
 MenuGroup:AddToggle("ExecuteOnTeleport", { Default = false, Text = "Execute on Teleport", Visible = ExecutorSupport["queue_on_teleport"] })
-MenuGroup:AddToggle("KeybindMenuOpen", { Default = false, Text = "Open Keybind Menu", Callback = function(value) Library.KeybindFrame.Visible = value end})
+MenuGroup:AddToggle("KeybindMenuOpen", { Default = false, Text = "打开 Keybind 菜单", Callback = function(value) Library.KeybindFrame.Visible = value end})
 MenuGroup:AddToggle("ShowCustomCursor", {Text = "Custom Cursor", Default = true, Callback = function(Value) Library.ShowCustomCursor = Value end})
 MenuGroup:AddDivider()
 MenuGroup:AddLabel("Menu bind"):AddKeyPicker("MenuKeybind", { Default = "RightShift", NoUI = true, Text = "Menu keybind" })
-MenuGroup:AddButton("Join Discord Server", function()
+MenuGroup:AddButton("加入MS作者DC", function()
     local Inviter = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Discord%20Inviter/Source.lua"))()
     Inviter.Join("https://discord.com/invite/cfyMptntHr")
     Inviter.Prompt({
@@ -5939,11 +5964,12 @@ MenuGroup:AddButton("Join Discord Server", function()
 end)
 MenuGroup:AddButton("Unload", function() Library:Unload() end)
 
-CreditsGroup:AddLabel("Developers:")
-CreditsGroup:AddLabel("upio - owner")
-CreditsGroup:AddLabel("deividcomsono - main script dev")
+CreditsGroup:AddLabel("开发商:")
+CreditsGroup:AddLabel("upio -所有者")
+CreditsGroup:AddLabel("主脚本开发")
 CreditsGroup:AddLabel("mstudio45")
 CreditsGroup:AddLabel("bacalhauz")
+CreditsGroup:AddLabel("汉化小玄奘")
 
 Library.ToggleKeybind = Options.MenuKeybind
 
